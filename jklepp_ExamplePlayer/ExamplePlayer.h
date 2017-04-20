@@ -23,6 +23,8 @@
 #ifndef CONNECT4PLAYERS_JKLEPP_EXAMPLEPLAYER_H
 #define CONNECT4PLAYERS_JKLEPP_EXAMPLEPLAYER_H
 
+#include "../Player.h"
+
 namespace jklepp {
 
     bool isColumnFree(const IBoard &board, unsigned int column);

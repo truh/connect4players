@@ -27,11 +27,11 @@ bool jklepp::isColumnFree(const IBoard &board, unsigned int column) {
 }
 
 jklepp::ExamplePlayer::ExamplePlayer() {}
-virtual jklepp::ExamplePlayer::~ExamplePlayer() {}
+jklepp::ExamplePlayer::~ExamplePlayer() {}
 
-virtual unsigned int jklepp::ExamplePlayer::doMove(const IBoard &board, Token player) override {
+unsigned int jklepp::ExamplePlayer::doMove(const IBoard &board, Token player) {
     for (unsigned int i = 0; i < board.columns; ++i) {
-        if (isColumnFree(i)) {
+        if (jklepp::isColumnFree(board, i)) {
             return i;
         }
     }
