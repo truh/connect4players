@@ -23,10 +23,12 @@
 
 #include "PlayerRegistry.h"
 #include "jklepp_ExamplePlayer/ExamplePlayer.h"
+#include "jklepp_ForcedOrGaussPlayer/ForcedOrGaussPlayer.h"
 
 PlayerRegistry::PlayerRegistry() {
     // jklepp_ExamplePlayer
     players["jklepp_ExamplePlayer"] = new jklepp::ExamplePlayer();
+    players["jklepp_ForcedOrGaussPlayer"] = new jklepp::ForcedOrGaussPlayer();
 }
 
 PlayerRegistry::~PlayerRegistry() {
