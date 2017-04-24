@@ -17,45 +17,50 @@ The resulting files might look like this:
 
 * ``jklepp_ExamplePlayer/ExamplePlayer.h``
 
-    #include "../Player.h"
+``` c++
+#include "../Player.h"
 
-    namespace jklepp {
-        // since this is within your namespace, you can define your
-        // own helper function without risking conflicts
-        bool isColumnFree(const IBoard &board, unsigned int column);
+namespace jklepp {
+    // since this is within your namespace, you can define your
+    // own helper function without risking conflicts
+    bool isColumnFree(const IBoard &board, unsigned int column);
 
-        // make sure to use public inheritance
-        class ExamplePlayer : public Player {
-        public:
-            ExamplePlayer();
-            virtual ~ExamplePlayer();
-            virtual unsigned int doMove(const IBoard &board, Token player) override;
-        };
+    // make sure to use public inheritance
+    class ExamplePlayer : public Player {
+    public:
+        ExamplePlayer();
+        virtual ~ExamplePlayer();
+        virtual unsigned int doMove(const IBoard &board, Token player) override;
+    };
 
-    }
+}
+```
 
 * ``jklepp_ExamplePlayer/ExamplePlayer.cpp``
 
-    #include "ExamplePlayer.h"
+``` c++
+#include "ExamplePlayer.h"
 
-    bool jklepp::isColumnFree(const IBoard &board, unsigned int column) {
-        return Token::NONE == board.get(column, board.rows - 1);
-    }
+bool jklepp::isColumnFree(const IBoard &board, unsigned int column) {
+    return Token::NONE == board.get(column, board.rows - 1);
+}
 
-    jklepp::ExamplePlayer::ExamplePlayer() {}
-    jklepp::ExamplePlayer::~ExamplePlayer() {}
+jklepp::ExamplePlayer::ExamplePlayer() {}
+jklepp::ExamplePlayer::~ExamplePlayer() {}
 
-    unsigned int jklepp::ExamplePlayer::doMove(const IBoard &board, Token player) {
-        for (unsigned int i = 0; i < board.columns; ++i) {
-            if (jklepp::isColumnFree(board, i)) {
-                return i;
-            }
+unsigned int jklepp::ExamplePlayer::doMove(const IBoard &board, Token player) {
+    for (unsigned int i = 0; i < board.columns; ++i) {
+        if (jklepp::isColumnFree(board, i)) {
+            return i;
         }
-        return board.columns;
     }
+    return board.columns;
+}
+```
     
 Register your player in the player registry (PlayerRegistry.cpp):
 
+``` c++
     /* ... */
     PlayerRegistry::PlayerRegistry() {
         /* ... */
@@ -63,14 +68,17 @@ Register your player in the player registry (PlayerRegistry.cpp):
         /* ... */
     }
     /* ... */
+```
 
 Add your headers and sources to the CMakeLists.txt
 
-    # ...
-    set(jklepp_ExamplePlayer jklepp_ExamplePlayer/ExamplePlayer.h jklepp_ExamplePlayer/ExamplePlayer.cpp)
+``` cmake
+# ...
+set(jklepp_ExamplePlayer jklepp_ExamplePlayer/ExamplePlayer.h jklepp_ExamplePlayer/ExamplePlayer.cpp)
 
-    add_library(connect4players STATIC
-            Player.h PlayerRegistry.cpp PlayerRegistry.h
-            # ...
-            ${jklepp_ExamplePlayer}
-    )
+add_library(connect4players STATIC
+        Player.h PlayerRegistry.cpp PlayerRegistry.h
+        # ...
+        ${jklepp_ExamplePlayer}
+)
+```
